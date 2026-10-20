@@ -1,0 +1,29 @@
+# Output of `npm test` (Node.js test runner, in-memory Ganache chain, solc 0.8.24, EVM paris)
+
+✔ V1 constructor sets owner and facility name (398.421028ms)
+✔ V2 owner registers a machine (254.073333ms)
+✔ V3 owner adds a technician (155.537278ms)
+✔ V4 technician logs maintenance and history is stored (289.139675ms)
+✔ V5 overdue flag turns on after the due date passes (85.015577ms)
+✔ V6 anyone (outsider) can read machine data (74.444767ms)
+✔ I1 empty machine ID is rejected (34.773033ms)
+✔ I2 duplicate machine ID is rejected (34.003265ms)
+✔ I3 machine ID longer than 32 characters is rejected (30.65213ms)
+✔ I4 condition outside 1-5 is rejected (44.40436ms)
+✔ I5 next due date in the past is rejected (43.52404ms)
+✔ I6 empty work description is rejected (59.488878ms)
+✔ I7 logging against an unknown machine is rejected (54.103157ms)
+✔ I8 adding the zero address as technician is rejected (31.091693ms)
+✔ U1 non-owner cannot register a machine (31.176139ms)
+✔ U2 technician (not owner) cannot add technicians (27.814403ms)
+✔ U3 outsider cannot log maintenance (40.485169ms)
+✔ U4 removed technician loses access (152.859785ms)
+✔ U5 owner cannot be removed (27.984061ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2357.460382

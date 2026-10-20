@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MaintainChain – machine maintenance log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>MaintainChain</h1>
+      <p id="facility">Connect your wallet to load the facility</p>
+    </div>
+    <div class="wallet">
+      <div id="walletInfo" class="wallet-info" hidden>
+        <span id="roleBadge" class="role">Viewer</span>
+        <span id="account" class="addr"></span>
+        <span id="network" class="net"></span>
+      </div>
+      <button id="connectBtn" class="btn btn-primary">Connect MetaMask</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <main class="layout">
+    <section class="col-actions" aria-label="Actions">
+
+      <form id="registerForm" class="panel">
+        <h2>Register a machine</h2>
+        <p class="who">Owner only</p>
+        <label>Machine ID<input name="machineId" placeholder="CNC-01" autocomplete="off"></label>
+        <label>Machine name<input name="name" placeholder="Haas VF-2 CNC mill" autocomplete="off"></label>
+        <label>Location<input name="location" placeholder="Bay 2, line A" autocomplete="off"></label>
+        <button class="btn" type="submit">Register machine</button>
+      </form>
+
+      <form id="logForm" class="panel">
+        <h2>Log a service</h2>
+        <p class="who">Authorised technicians</p>
+        <label>Machine ID<input name="machineId" placeholder="CNC-01" autocomplete="off"></label>
+        <label>Work done<textarea name="workDone" rows="3" maxlength="300" placeholder="Spindle lubricated, coolant replaced"></textarea></label>
+        <div class="row">
+          <label>Condition (1–5)<input name="condition" type="number" value="4"></label>
+          <label>Next service due<input name="nextDue" type="date"></label>
+        </div>
+        <button class="btn" type="submit">Log service</button>
+      </form>
+
+      <form id="techForm" class="panel">
+        <h2>Technicians</h2>
+        <p class="who">Owner only</p>
+        <label>Wallet address<input name="address" placeholder="0x…" autocomplete="off" spellcheck="false"></label>
+        <div class="row">
+          <button class="btn" type="submit" data-action="add">Add technician</button>
+          <button class="btn btn-quiet" type="submit" data-action="remove">Remove technician</button>
+        </div>
+      </form>
+
+      <label class="force">
+        <input type="checkbox" id="forceSend">
+        <span>Send transactions even if they will fail. Use this to record a reverted transaction on-chain for testing.</span>
+      </label>
+    </section>
+
+    <section class="col-data" aria-label="Machines">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Machines</h2>
+          <button id="refreshBtn" class="btn btn-quiet" type="button">Refresh</button>
+        </div>
+        <div class="stats">
+          <div><b id="statMachines">–</b><span>machines</span></div>
+          <div><b id="statRecords">–</b><span>service entries</span></div>
+          <div><b id="statTechs">–</b><span>technicians</span></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>Name</th><th>Location</th><th>Services</th><th>Status</th></tr></thead>
+            <tbody id="machineRows"><tr><td colspan="5" class="empty">Connect your wallet to read machines from the chain.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel">
+        <form id="lookupForm" class="panel-head">
+          <h2>Service history</h2>
+          <div class="lookup">
+            <input name="machineId" placeholder="Machine ID" aria-label="Machine ID" autocomplete="off">
+            <button class="btn" type="submit">Look up</button>
+          </div>
+        </form>
+        <div id="machineDetail"></div>
+        <ol id="history" class="tags"></ol>
+      </div>
+
+      <div class="panel">
+        <h2>Transaction log</h2>
+        <ol id="activity" class="activity"><li class="empty">Transactions you send from this page appear here.</li></ol>
+      </div>
+    </section>
+  </main>
+
+  <script src="lib/ethers.umd.min.js"></script>
+  <script src="abi.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
